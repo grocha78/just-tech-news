@@ -4,7 +4,6 @@ const withAuth = require('../../utils/auth');
 
 // GET /api/users
 router.get('/', (req, res) => {
-    // Access our User model and run .findAll() method)
     User.findAll({
         attributes: { exclude: ['password'] }
     })
@@ -131,7 +130,7 @@ router.put('/:id', withAuth, (req, res) => {
         }
     })
     .then(dbUserData => {
-        if (!dbUserData[0]) {
+        if (!dbUserData) {
             res.status(404).json({ message: 'No user found with this id' });
             return;
         }

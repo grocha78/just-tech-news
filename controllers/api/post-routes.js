@@ -92,8 +92,6 @@ router.post('/', withAuth, (req, res) => {
 
 // PUT /api/posts/upvote
 router.put('/upvote', withAuth, (req, res) => {
-    // make sure the session exists first
-    if (req.session) {
         // pass session id along with all destructured properties on req.body
         Post.upvote({ ...req.body, user_id: req.session.user_id }, {Vote, Comment, User })
         .then(updatedVoteData => res.json(updatedVoteData))
@@ -101,7 +99,6 @@ router.put('/upvote', withAuth, (req, res) => {
             console.log(err);
             res.status(500).json(err);
         });
-    }
  });
     
 router.put('/:id', withAuth, (req, res) => {
